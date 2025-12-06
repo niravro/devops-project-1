@@ -6,7 +6,7 @@ Devopsify a simple web application written in Python.
 
 ### TODO
 
-- [ ] Containerize the project - dockerfile
+- [x] Containerize the project - dockerfile
 - [ ] K8s manifest file
 - [ ] Setup CI with Github actions
 - [ ] Setup CD (GitOps) with ArgoCD
