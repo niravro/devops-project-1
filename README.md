@@ -8,7 +8,7 @@ Devopsify a simple web application written in Python.
 
 - [x] Containerize the project - dockerfile
 - [x] K8s manifest file
-- [ ] Setup CI with Github actions
+- [x] Setup CI with Github actions
 - [ ] Setup CD (GitOps) with ArgoCD
 - [x] Setup K8s cluster with Terraform / Use KodeKloud playground
 - [x] Setup Helm Chart for K8s deployment
@@ -19,6 +19,21 @@ Devopsify a simple web application written in Python.
 #### Adding NGINX controller on Azure
 
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.14.1/deploy/static/provider/cloud/deploy.yaml`
+
+#### Installing ArgoCD
+
+
+
+
+#### Connecting to AKS cluster (KodeKloud Playground)
+
+```
+az login
+
+az aks get-credentials --resource-group kml_rg_main-a4ff6ffc5d474819 --name devops-project --overwrite-existing
+
+kubelogin convert-kubeconfig -l azurecli
+```
 
 ### Learnings
 
