@@ -7,7 +7,7 @@ name: flask-app-CI
 on:
   push:
     branches:
-      - main
+      - feature/devops
     paths-ignore:
       - 'README.md'
       - '.github/workflows/CI.yaml'
