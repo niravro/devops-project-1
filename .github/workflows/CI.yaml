@@ -59,7 +59,7 @@ jobs:
             context: .
             file: ./Dockerfile
             push: true
-            tags: ${{ secrets.DOCKER_USERNAME }}/flask-app:{{ github.sha }}
+            tags: ${{ secrets.DOCKER_USERNAME }}/flask-app:${{ github.sha }}
 
     #   - name: Run tests
     #     run: |
@@ -74,7 +74,7 @@ jobs:
 
         - name: Update Helm values.yaml
           run: |
-            sed -i 's/tag: .*/tag: "{{ github.sha }}"/' helm/flask-app-chart/values.yaml
+            sed -i 's/tag: .*/tag: "${{ github.sha }}"/' helm/flask-app-chart/values.yaml
 
         - name: Commit and push changes
           run: |
