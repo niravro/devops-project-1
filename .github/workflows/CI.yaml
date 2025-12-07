@@ -10,7 +10,7 @@ on:
       - feature/devops
     paths-ignore:
       - 'README.md'
-      - '.github/workflows/CI.yaml'
+    #   - '.github/workflows/CI.yaml'
       - 'helm/**'
       - 'k8s/**'
 
