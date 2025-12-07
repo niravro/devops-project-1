@@ -82,4 +82,4 @@ jobs:
             git config --global user.email "niravro@gmail.com"
             git add helm/flask-app-chart/values.yaml
             git commit -m "Update Helm values.yaml with new image tag ${{ github.sha }}"
-            git push origin main
+            git push origin feature/devops
