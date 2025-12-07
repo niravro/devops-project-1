@@ -20,9 +20,9 @@ Devopsify a simple web application written in Python.
 
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.14.1/deploy/static/provider/cloud/deploy.yaml`
 
-#### Learnings
+### Learnings
 
-- Multiplatform Docker build 
+#### Multiplatform Docker build 
 
 Error : 
 
@@ -34,21 +34,27 @@ Kubernetes tried to pull docker.io/niravro/flask-app:1.1 but the image manifest 
 
 Troubleshooting : 
 
-# Check node architecture(s)
+```
+- Check node architecture(s)
+
 kubectl get nodes -o wide
 kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.nodeInfo.architecture}{"\n"}{end}'
 
-# Inspect the registry manifest for platforms
+- Inspect the registry manifest for platforms
+
 docker manifest inspect docker.io/niravro/flask-app:1.1
 
-# Try pulling for a specific platform (diagnostic)
+- Try pulling for a specific platform (diagnostic)
+
 docker pull --platform linux/amd64 docker.io/niravro/flask-app:1.1
 docker pull --platform linux/arm64  docker.io/niravro/flask-app:1.1
-
-Since we built the image on ARM Mac, AKS node running amd64 could not pull it.
+```
+**Image pull failed for linux/amd64 platform. Since we built the image on ARM Mac, AKS node running amd64 could not pull it.**
 
 Solution :
 
 Add target platforms during build, it creates separate manifests and a list pointing to each with different configuration and set of layers.
 
 `docker build -t niravro/flask-app:1.3 --platform=linux/amd64,linux/arm64 .`
+
+---
