@@ -9,21 +9,12 @@ Devopsify a simple web application written in Python.
 - [x] Containerize the project - dockerfile
 - [x] K8s manifest file
 - [x] Setup CI with Github actions
-- [ ] Setup CD (GitOps) with ArgoCD
+- [x] Setup CD (GitOps) with ArgoCD
 - [x] Setup K8s cluster with Terraform / Use KodeKloud playground
 - [x] Setup Helm Chart for K8s deployment
 - [x] Ingress Controller configuration
-- [ ] DNS mapping
+- [x] DNS mapping in host file
 - [ ] Monitoring (future)
-
-#### Adding NGINX controller on Azure
-
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.14.1/deploy/static/provider/cloud/deploy.yaml`
-
-#### Installing ArgoCD
-
-
-
 
 #### Connecting to AKS cluster (KodeKloud Playground)
 
@@ -33,6 +24,27 @@ az login
 az aks get-credentials --resource-group kml_rg_main-a4ff6ffc5d474819 --name devops-project --overwrite-existing
 
 kubelogin convert-kubeconfig -l azurecli
+```
+
+#### Installing NGINX controller on AKS
+
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.14.1/deploy/static/provider/cloud/deploy.yaml`
+
+#### Installing ArgoCD on AKS
+
+```
+# Create namespace and install
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# Expost service and get external IP
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl get svc argocd-server -n argocd
+
+# Get initial login password
+kubectl get secrets -n argocd
+kubectl edit secrets argocd-initial-admin-secret -n argocd
+echo <secret> | base64 -d
 ```
 
 ### Learnings
